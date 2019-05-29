@@ -14,12 +14,25 @@ $(document).bind('DOMNodeInserted', function(){
     }
     e.originalEvent.dataTransfer.setData("Text",dragName);
   });
+  $(".dropelement").on("dragstart",function(e){
+	var nodeCheck = e.target;
+    var dragName = nodeCheck.id;
+    
+    // make sure you grab the entire draggable element
+    while(dragName === "" || nodeCheck.className !== "dropelement") {
+      nodeCheck = nodeCheck.parentNode;
+      dragName = nodeCheck.id;
+    }
+    e.originalEvent.dataTransfer.setData("Text",e.target.id);
+    $("#" + e.target.id).siblings(".tooltip").toggle();
+  });
   $(".dropelement").on("drop",function(e){
     e.preventDefault();
     var data=e.originalEvent.dataTransfer.getData("Text");
     // prevent images from stacking on tope of each other
     if (e.target.nodeName !== "IMG") {
       e.target.appendChild(document.getElementById(data));
+	  $("#" + data).siblings(".tooltip").toggle();
       var el = $(e.target);
       el.trigger("change");
     }
