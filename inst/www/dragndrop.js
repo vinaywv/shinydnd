@@ -8,7 +8,7 @@ $(document).ready(function(){
     var dragName = nodeCheck.id;
     
     // make sure you grab the entire draggable element
-    while(dragName === "" || nodeCheck.className !== "dragelement") {
+    while(dragName === "" || $(nodeCheck).hasClass("dragelement")) {
       nodeCheck = nodeCheck.parentNode;
       dragName = nodeCheck.id;
     }
@@ -19,7 +19,7 @@ $(document).ready(function(){
     var dragName = nodeCheck.id;
     
     // make sure you grab the entire draggable element
-    while(dragName === "" || nodeCheck.className !== "dropelement") {
+    while(dragName === "" || $(nodeCheck).hasClass("dropelement")) {
       nodeCheck = nodeCheck.parentNode;
       dragName = nodeCheck.id;
     }
