@@ -24,18 +24,22 @@ $(document).ready(function(){
       dragName = nodeCheck.id;
     }
     e.originalEvent.dataTransfer.setData("Text",e.target.id);
-    $("#" + e.target.id).siblings(".tooltip").toggle();
+    $("#" + e.target.id).siblings(".tooltip").toggle(); //hide the tooltip when the drag starts
   });
   $(".dropelement").on("drop",function(e){
     e.preventDefault();
     var data=e.originalEvent.dataTransfer.getData("Text");
+    if ($(e.target).hasClass("dragelement")){
+      var el = $(e.target).closest(".dropelement"); //pick the parent dropelement if the target was dragelement
+    } else {
+      var el = $(e.target);
+    };
     // prevent images from stacking on tope of each other
     if (e.target.nodeName !== "IMG") {
-      e.target.appendChild(document.getElementById(data));
-	  $("#" + data).siblings(".tooltip").toggle();
-      var el = $(e.target);
+      el.append(document.getElementById(data));
+      $(data).siblings(".tooltip").toggle(); //show the tooltip when the drag ends
       el.trigger("change");
-    }
+    };
   });
 });
 
