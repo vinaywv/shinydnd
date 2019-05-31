@@ -1,5 +1,5 @@
 // need to bind on inserted to work with insertUI
-$(document).bind('DOMNodeInserted', function(){
+$(document).ready(function(){
   $(".dropelement").on("dragover",function(e){
     e.preventDefault();
   });
