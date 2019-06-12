@@ -17,14 +17,15 @@ $(document).ready(function(){
   $(".dropelement").on("dragstart",function(e){
 	var nodeCheck = e.target;
     var dragName = nodeCheck.id;
-    
-    // make sure you grab the entire draggable element
-    while(dragName === "" || $(nodeCheck).hasClass("dropelement")) {
-      nodeCheck = nodeCheck.parentNode;
-      dragName = nodeCheck.id;
+    if(!$(nodeCheck).hasClass("disable-drag")) {	    
+	    // make sure you grab the entire draggable element
+	    while(dragName === "" || $(nodeCheck).hasClass("dropelement")) {
+	      nodeCheck = nodeCheck.parentNode;
+	      dragName = nodeCheck.id;
+	    }
+	    e.originalEvent.dataTransfer.setData("Text",e.target.id);
+	    $("#" + e.target.id).siblings(".tooltip").toggle(); //hide the tooltip when the drag starts
     }
-    e.originalEvent.dataTransfer.setData("Text",e.target.id);
-    $("#" + e.target.id).siblings(".tooltip").toggle(); //hide the tooltip when the drag starts
   });
   $(".dropelement").on("drop",function(e){
     e.preventDefault();
