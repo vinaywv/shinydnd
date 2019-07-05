@@ -50,7 +50,7 @@ $.extend(dragDropBinding, {
     return $(scope).find(".dropelement");
   },
   getValue: function(el) {
-    return $(el).text();
+    return el.innerText;
   },
   setValue: function(el) {
     $(el).text();
