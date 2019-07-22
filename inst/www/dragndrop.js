@@ -39,7 +39,9 @@ $(document).ready(function(){
     if (e.target.nodeName !== "IMG") {
       el.append(document.getElementById(data));
       $(data).siblings(".tooltip").toggle(); //show the tooltip when the drag ends
-      el.trigger("change");
+      var message = {data: e.target.innerText, nonce: Math.random()};//add random value to ensure the observeEvent for drop triggers everytime
+      Shiny.onInputChange(el.context.id,message); //alternate way to send data from JS to Shiny - need to parse for the message to extract data only
+      //el.trigger("change");
     };
   });
 });
