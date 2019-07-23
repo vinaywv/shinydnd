@@ -30,18 +30,20 @@ $(document).ready(function(){
   $(".dropelement").on("drop",function(e){
     e.preventDefault();
     var data=e.originalEvent.dataTransfer.getData("Text");
-    if ($(e.target).hasClass("dragelement")){
-      var el = $(e.target).closest(".dropelement"); //pick the parent dropelement if the target was dragelement
-    } else {
-      var el = $(e.target);
-    };
-    // prevent images from stacking on tope of each other
-    if (e.target.nodeName !== "IMG") {
-      el.append(document.getElementById(data));
-      $(data).siblings(".tooltip").toggle(); //show the tooltip when the drag ends
-      var message = {data: e.target.innerText, nonce: Math.random()};//add random value to ensure the observeEvent for drop triggers everytime
-      Shiny.onInputChange(el.context.id,message); //alternate way to send data from JS to Shiny - need to parse for the message to extract data only
-      //el.trigger("change");
+    if(data != "") {
+    	if ($(e.target).hasClass("dragelement")){
+      		var el = $(e.target).closest(".dropelement"); //pick the parent dropelement if the target was dragelement
+    	} else {
+      		var el = $(e.target);
+	};
+	// prevent images from stacking on tope of each other
+	if (e.target.nodeName !== "IMG") {
+	  el.append(document.getElementById(data));
+	  $(data).siblings(".tooltip").toggle(); //show the tooltip when the drag ends
+	  var message = {data: e.target.innerText, nonce: Math.random()};//add random value to ensure the observeEvent for drop triggers everytime
+	  Shiny.onInputChange(el.context.id,message); //alternate way to send data from JS to Shiny - need to parse for the message to extract data only
+	  //el.trigger("change");
+	};	
     };
   });
 });
@@ -52,7 +54,7 @@ $.extend(dragDropBinding, {
     return $(scope).find(".dropelement");
   },
   getValue: function(el) {
-    return el.innerText;
+    return {data: el.innerText};
   },
   setValue: function(el) {
     $(el).text();
