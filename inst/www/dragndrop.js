@@ -25,6 +25,7 @@ $(document).ready(function(){
 	    }
 	    e.originalEvent.dataTransfer.setData("Text",e.target.id);
 	    $("#" + e.target.id).siblings(".tooltip").toggle(); //hide the tooltip when the drag starts
+	    $("#" + e.target.id).children(".dropdown").removeClass("open"); //hide the dropdown when the drag starts
     }
   });
   $(".dropelement").on("drop",function(e){
